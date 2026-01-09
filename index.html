@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message For You 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+            background: #000;
+        }
+
+        /* Page 1: Landing */
+        .page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #page1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .hearts-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0;
+            animation: float 6s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .landing-content {
+            text-align: center;
+            z-index: 2;
+            color: white;
+            padding: 40px;
+        }
+
+        .landing-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .landing-content p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .open-btn {
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .open-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        /* Page 2: Memory Gallery */
+        #page2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 80px 20px;
+        }
+
+        .gallery-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            z-index: 2;
+        }
+
+        .gallery-content h2 {
+            text-align: center;
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            animation: fadeInUp 0.6s ease both;
+        }
+
+        .photo-card:nth-child(1) { animation-delay: 0.1s; }
+        .photo-card:nth-child(2) { animation-delay: 0.2s; }
+        .photo-card:nth-child(3) { animation-delay: 0.3s; }
+        .photo-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .photo-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .photo-caption {
+            padding: 20px;
+            text-align: center;
+            color: #333;
+            font-style: italic;
+        }
+
+        /* Page 3: Video Message */
+        #page3 {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 80px 20px;
+        }
+
+        .video-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .video-content h2 {
+            color: #333;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease;
+        }
+
+        .video-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .video-text {
+            color: #666;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* Page 4: The Proposal */
+        #page4 {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+
+        .proposal-content {
+            text-align: center;
+            z-index: 2;
+            color: white;
+            padding: 40px;
+            max-width: 800px;
+        }
+
+        .proposal-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .proposal-content p {
+            font-size: 1.5rem;
+            margin-bottom: 50px;
+            line-height: 1.8;
+            animation: fadeIn 1s ease 0.3s both;
+        }
+
+        .answer-buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .answer-btn {
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .yes-btn {
+            background: white;
+            color: #ff6b9d;
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .no-btn {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .no-btn:hover {
+            transform: scale(0.95);
+        }
+
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .celebration.active {
+            display: flex;
+        }
+
+        .celebration-content {
+            background: white;
+            padding: 60px;
+            border-radius: 30px;
+            text-align: center;
+            animation: bounceIn 0.6s ease;
+        }
+
+        .celebration-content h3 {
+            font-size: 3rem;
+            color: #ff6b9d;
+            margin-bottom: 20px;
+        }
+
+        .celebration-content p {
+            font-size: 1.5rem;
+            color: #666;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1rem;
+            animation: bounce 2s infinite;
+            z-index: 2;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .landing-content h1 {
+                font-size: 2.5rem;
+            }
+            .landing-content p {
+                font-size: 1.2rem;
+            }
+            .gallery-content h2,
+            .video-content h2,
+            .proposal-content h2 {
+                font-size: 2rem;
+            }
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+            .answer-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: Landing -->
+    <div id="page1" class="page">
+        <div class="hearts-bg" id="heartsContainer"></div>
+        <div class="landing-content">
+            <h1>💕 For Someone Special 💕</h1>
+            <p>I have something important to tell you...</p>
+            <button class="open-btn" onclick="scrollToPage2()">Open Your Heart</button>
+        </div>
+        <div class="scroll-indicator">↓ Scroll Down ↓</div>
+    </div>
+
+    <!-- Page 2: Memory Gallery -->
+    <div id="page2" class="page">
+        <div class="gallery-content">
+            <h2>Our Beautiful Memories ✨</h2>
+            <div class="photo-grid">
+                <div class="photo-card">
+                    <div class="photo-placeholder">📷</div>
+                    <div class="photo-caption">That first moment we met...</div>
+                </div>
+                <div class="photo-card">
+                    <div class="photo-placeholder">🌹</div>
+                    <div class="photo-caption">Every laugh we shared</div>
+                </div>
+                <div class="photo-card">
+                    <div class="photo-placeholder">🌟</div>
+                    <div class="photo-caption">The adventures we had</div>
+                </div>
+                <div class="photo-card">
+                    <div class="photo-placeholder">💫</div>
+                    <div class="photo-caption">All the dreams we talked about</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">↓ Keep Going ↓</div>
+    </div>
+
+    <!-- Page 3: Video Message -->
+    <div id="page3" class="page">
+        <div class="video-content">
+            <h2>A Message From My Heart 💌</h2>
+            <div class="video-container">
+                <div class="video-placeholder">
+                    🎬 Your Video Will Play Here
+                </div>
+                <div class="video-text">
+                    From the moment I met you, my life changed in the most beautiful way. 
+                    Every day with you is a gift, and I can't imagine my future without you in it. 
+                    You make me laugh, you make me think, and most importantly, you make me want to be better.
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">↓ Almost There ↓</div>
+    </div>
+
+    <!-- Page 4: The Proposal -->
+    <div id="page4" class="page">
+        <div class="hearts-bg" id="heartsContainer2"></div>
+        <div class="proposal-content">
+            <h2>So... Here's My Question 💝</h2>
+            <p>
+                You've made every moment magical. You've shown me what true happiness feels like. 
+                And now, on this special day, I want to ask you something that's been on my mind...
+            </p>
+            <h2 style="font-size: 2.5rem; margin: 30px 0;">Will You Be My Valentine? 🌹</h2>
+            <div class="answer-buttons">
+                <button class="answer-btn yes-btn" onclick="handleYes()">Yes! 💕</button>
+                <button class="answer-btn no-btn" onclick="handleNo(this)">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Modal -->
+    <div class="celebration" id="celebration">
+        <div class="celebration-content">
+            <h3>🎉 YES! 🎉</h3>
+            <p>You've made me the happiest person alive! 💕</p>
+            <p style="margin-top: 20px; font-size: 3rem;">🎊 ❤️ 🎊</p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHearts(containerId) {
+            const container = document.getElementById(containerId);
+            const heartSymbols = ['❤️', '💕', '💖', '💗', '💓', '💝'];
+            
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                    container.appendChild(heart);
+                }, i * 200);
+            }
+        }
+
+        createHearts('heartsContainer');
+        createHearts('heartsContainer2');
+
+        function scrollToPage2() {
+            document.getElementById('page2').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        let noClickCount = 0;
+        function handleNo(button) {
+            noClickCount++;
+            const messages = [
+                "Are you sure? 🥺",
+                "Really? Think again... 💔",
+                "Please? 🙏",
+                "Just one more chance? 💕",
+                "Okay fine, I'll keep asking! 😊"
+            ];
+            
+            if (noClickCount < messages.length) {
+                button.textContent = messages[noClickCount - 1];
+                button.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 200);
+            } else {
+                button.style.display = 'none';
+            }
+        }
+
+        function handleYes() {
+            document.getElementById('celebration').classList.add('active');
+            
+            // Create confetti effect
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createConfetti();
+                }, i * 50);
+            }
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.textContent = ['🎉', '🎊', '❤️', '💕', '⭐'][Math.floor(Math.random() * 5)];
+            confetti.style.position = 'fixed';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.top = '-50px';
+            confetti.style.fontSize = '30px';
+            confetti.style.zIndex = '10000';
+            confetti.style.pointerEvents = 'none';
+            document.body.appendChild(confetti);
+            
+            const animation = confetti.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 2000 + 2000,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            });
+            
+            animation.onfinish = () => confetti.remove();
+        }
+
+        // Smooth scroll reveal animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.page').forEach(page => {
+            observer.observe(page);
+        });
+    </script>
+</body>
+</html>
