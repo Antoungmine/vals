@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <title>For You, With Love</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --burgundy: #8B2635;
+            --soft-red: #D84A5E;
+            --cream: #FFF5F5;
+            --white: #FFFFFF;
+            --deep-red: #5C1A24;
+            --rose: #E8B4B8;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--deep-red);
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--white) 50%, var(--cream) 100%);
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 70%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(216, 74, 94, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 60%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(139, 38, 53, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(30px, -30px) rotate(5deg);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) rotate(-5deg);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 300;
+            color: var(--burgundy);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            color: var(--soft-red);
+            margin-bottom: 3rem;
+            letter-spacing: 0.05em;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.4s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s forwards, bounce 2s ease-in-out 1.8s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 40px;
+            border: 2px solid var(--burgundy);
+            border-radius: 12px;
+            position: relative;
+            margin: 0 auto 0.5rem;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--burgundy);
+            border-radius: 2px;
+            animation: scrollDot 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollDot {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(16px);
+                opacity: 0;
+            }
+        }
+
+        .memories-section {
+            padding: 8rem 2rem;
+            background: var(--white);
+            position: relative;
+        }
+
+        .memories-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--rose), transparent);
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            color: var(--burgundy);
+            text-align: center;
+            margin-bottom: 4rem;
+            letter-spacing: -0.01em;
+        }
+
+        .memories-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .memory-card {
+            background: var(--cream);
+            padding: 2.5rem;
+            border-radius: 2px;
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            border: 1px solid rgba(139, 38, 53, 0.08);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .memory-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .memory-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .memory-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .memory-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .memory-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(135deg, var(--soft-red), var(--burgundy));
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(139, 38, 53, 0.15);
+        }
+
+        .memory-card:hover::before {
+            opacity: 1;
+        }
+
+        .memory-card::after {
+            content: 'Click to view';
+            position: absolute;
+            bottom: 1.5rem;
+            right: 2rem;
+            font-size: 0.75rem;
+            color: var(--soft-red);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        .memory-card:hover::after {
+            opacity: 0.7;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(92, 26, 36, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            max-width: 1100px;
+            width: 100%;
+            background: var(--white);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.9) translateY(30px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 48px;
+            height: 48px;
+            background: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-close:hover {
+            background: var(--burgundy);
+            transform: rotate(90deg);
+        }
+
+        .modal-close::before,
+        .modal-close::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: var(--burgundy);
+            transition: background 0.3s ease;
+        }
+
+        .modal-close:hover::before,
+        .modal-close:hover::after {
+            background: var(--white);
+        }
+
+        .modal-close::before {
+            transform: rotate(45deg);
+        }
+
+        .modal-close::after {
+            transform: rotate(-45deg);
+        }
+
+        .modal-media {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .modal-text-container {
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+        }
+
+        .modal-date {
+            font-size: 0.9rem;
+            color: var(--soft-red);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .modal-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--burgundy);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .modal-description {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--deep-red);
+            font-weight: 300;
+        }
+
+        .memory-date {
+            font-size: 0.85rem;
+            color: var(--soft-red);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .memory-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--burgundy);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .memory-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--deep-red);
+            font-weight: 300;
+        }
+
+        .open-when-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+        }
+
+        .letters-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .letter-envelope {
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(139, 38, 53, 0.15);
+            border-radius: 2px;
+            overflow: hidden;
+            background: var(--white);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .letter-envelope:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .letter-envelope:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .letter-envelope:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .letter-envelope:hover {
+            border-color: rgba(139, 38, 53, 0.3);
+            box-shadow: 0 8px 24px rgba(139, 38, 53, 0.08);
+        }
+
+        .letter-envelope.active {
+            border-color: var(--soft-red);
+            box-shadow: 0 12px 32px rgba(139, 38, 53, 0.12);
+        }
+
+        .envelope-header {
+            padding: 2rem 2.5rem;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.3s ease;
+            user-select: none;
+        }
+
+        .envelope-header:hover {
+            background: rgba(216, 74, 94, 0.02);
+        }
+
+        .letter-envelope.active .envelope-header {
+            background: rgba(216, 74, 94, 0.04);
+        }
+
+        .envelope-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 400;
+            color: var(--burgundy);
+            font-style: italic;
+            flex: 1;
+        }
+
+        .accordion-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.4s ease;
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+
+        .accordion-icon::before,
+        .accordion-icon::after {
+            content: '';
+            position: absolute;
+            background: var(--burgundy);
+            transition: all 0.4s ease;
+        }
+
+        .accordion-icon::before {
+            width: 14px;
+            height: 2px;
+        }
+
+        .accordion-icon::after {
+            width: 2px;
+            height: 14px;
+        }
+
+        .letter-envelope.active .accordion-icon {
+            background: var(--soft-red);
+            transform: rotate(90deg);
+        }
+
+        .letter-envelope.active .accordion-icon::before,
+        .letter-envelope.active .accordion-icon::after {
+            background: var(--white);
+        }
+
+        .letter-envelope.active .accordion-icon::after {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        .letter-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease;
+            padding: 0 2.5rem;
+        }
+
+        .letter-envelope.active .letter-content {
+            max-height: 1000px;
+            padding: 0 2.5rem 2.5rem 2.5rem;
+        }
+
+        .letter-inner {
+            position: relative;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+            border-left: 3px solid var(--soft-red);
+            margin-top: 1.5rem;
+        }
+
+        .letter-inner::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            color: var(--rose);
+            line-height: 1;
+            opacity: 0.3;
+        }
+
+        .letter-text {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--deep-red);
+            font-weight: 300;
+        }
+
+        .letter-signature {
+            margin-top: 2rem;
+            text-align: right;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--burgundy);
+            font-style: italic;
+        }
+
+        .conclusion-section {
+            padding: 8rem 2rem;
+            background: var(--burgundy);
+            color: var(--cream);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .conclusion-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+        }
+
+        .conclusion-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .conclusion-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 400;
+            margin-bottom: 2rem;
+            letter-spacing: -0.01em;
+        }
+
+        .conclusion-text {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 3rem;
+        }
+
+        .heart-decoration {
+            font-size: 2.5rem;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.1);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 1.5rem;
+            }
+
+            .memories-section,
+            .open-when-section,
+            .conclusion-section {
+                padding: 5rem 1.5rem;
+            }
+
+            .letter-content {
+                padding: 0 1.5rem;
+            }
+
+            .letter-envelope.active .letter-content {
+                padding: 0 1.5rem 2rem 1.5rem;
+            }
+
+            .letter-inner {
+                padding: 1.5rem;
+            }
+
+            .envelope-header {
+                padding: 1.5rem;
+            }
+
+            .envelope-title {
+                font-size: 1.3rem;
+            }
+
+            .accordion-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .modal {
+                padding: 1rem;
+            }
+
+            .modal-media {
+                height: 300px;
+            }
+
+            .modal-text-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .modal-title {
+                font-size: 2rem;
+            }
+
+            .modal-description {
+                font-size: 1rem;
+            }
+
+            .memory-card::after {
+                font-size: 0.65rem;
+                bottom: 1rem;
+                right: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">For You,<br>With All My Heart</h1>
+            <p class="hero-subtitle">A collection of moments, memories, and love letters</p>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Memories Section -->
+    <section class="memories-section">
+        <h2 class="section-title">Our Cherished Memories</h2>
+        <div class="memories-grid">
+            <div class="memory-card" data-media-type="image"
+                data-media-src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800">
+                <div class="memory-date">December 2023</div>
+                <h3 class="memory-title">That First Coffee</h3>
+                <p class="memory-text">The way you laughed at my terrible joke about the latte art. I knew right then
+                    that I wanted to hear that sound for the rest of my life. Your smile lit up the whole café.</p>
+            </div>
+
+            <div class="memory-card" data-media-type="video"
+                data-media-src="https://www.w3schools.com/html/mov_bbb.mp4">
+                <div class="memory-date">March 2024</div>
+                <h3 class="memory-title">Sunset by the Lake</h3>
+                <p class="memory-text">When we sat in comfortable silence, watching the sun paint the sky in shades of
+                    gold and pink. No words needed. Just your hand in mine and the world feeling perfectly right.</p>
+            </div>
+
+            <div class="memory-card" data-media-type="image"
+                data-media-src="https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=800">
+                <div class="memory-date">July 2024</div>
+                <h3 class="memory-title">Dancing in the Rain</h3>
+                <p class="memory-text">Remember how we got caught in that summer storm? Instead of running for cover, we
+                    danced. You told me I was crazy, but you were laughing the whole time. Pure magic.</p>
+            </div>
+
+            <div class="memory-card" data-media-type="image"
+                data-media-src="https://images.unsplash.com/photo-1511407397940-d57f68e81203?w=800">
+                <div class="memory-date">November 2024</div>
+                <h3 class="memory-title">The Quiet Morning</h3>
+                <p class="memory-text">Waking up to find you'd made breakfast and left me a note on the counter. "Good
+                    morning, beautiful." The simplest gesture, but it made my entire week. You make ordinary moments
+                    extraordinary.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open When Letters Section -->
+    <section class="open-when-section">
+        <h2 class="section-title">Letters for You</h2>
+        <div class="letters-container">
+
+            <div class="letter-envelope">
+                <div class="envelope-header">
+                    <h3 class="envelope-title">Open When You Think of Me</h3>
+                    <div class="accordion-icon"></div>
+                </div>
+                <div class="letter-content">
+                    <div class="letter-inner">
+                        <p class="letter-text">I hope you're smiling right now, because I'm thinking of you too.
+                            Wherever you are, whatever you're doing, know that you crossed my mind and made this moment
+                            brighter. You have this way of staying with me even when we're apart. In the quiet moments,
+                            in the busy ones, in everything between. You're woven into my thoughts like a favorite song
+                            I can't help but replay. I miss you when you're not here, but I carry you with me always.
+                            Think of this as me giving you a hug from wherever I am. Close your eyes, take a deep
+                            breath, and feel how much you mean to me.</p>
+                        <div class="letter-signature">Always yours</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="letter-envelope">
+                <div class="envelope-header">
+                    <h3 class="envelope-title">Open When You Need to Know How Special You Are</h3>
+                    <div class="accordion-icon"></div>
+                </div>
+                <div class="letter-content">
+                    <div class="letter-inner">
+                        <p class="letter-text">You are extraordinary. Not because of any single thing you do, but
+                            because of who you are at your core. The way you care for others without keeping score. The
+                            way you find joy in small things. The way you make people feel seen and valued. Your
+                            kindness is not a weakness; it's your superpower. Your sensitivity is not too much; it's
+                            what makes you beautifully human. The world needs more people like you. I need you. On days
+                            when you doubt yourself, remember that you are someone's reason to smile. You are my reason.
+                            You light up rooms just by being in them. You make life better simply by existing in it.
+                            Never forget how rare and precious you are.</p>
+                        <div class="letter-signature">Your biggest admirer</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="letter-envelope">
+                <div class="envelope-header">
+                    <h3 class="envelope-title">Open When You're Missing Me</h3>
+                    <div class="accordion-icon"></div>
+                </div>
+                <div class="letter-content">
+                    <div class="letter-inner">
+                        <p class="letter-text">I miss you too. Distance is just a test to see how far love can travel,
+                            and ours goes on forever. Close your eyes and picture this: I'm right there beside you. My
+                            hand is holding yours. I'm listening to whatever you need to say, or we're sitting in that
+                            comfortable silence we've perfected. I'm there in the memories we've made and in all the
+                            ones we're going to create. Until we're together again, look at the stars and know I'm
+                            looking at them too. Listen to our favorite songs. Reread these letters. Hold onto the
+                            thought that missing someone means you're lucky enough to have someone worth missing. And
+                            you, my love, are worth every moment of missing and every mile between us.</p>
+                        <div class="letter-signature">Until we meet again</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section class="conclusion-section">
+        <div class="conclusion-content">
+            <h2 class="conclusion-title">You Are My Forever</h2>
+            <p class="conclusion-text">Every love story is beautiful, but ours is my favorite. Thank you for being you,
+                for choosing me, for making every day an adventure worth taking. Here's to all our memories made and all
+                the ones still waiting for us. Happy Valentine's Day, my love.</p>
+            <div class="heart-decoration">♥</div>
+        </div>
+    </section>
+
+    <!-- Memory Modal -->
+    <div class="modal" id="memoryModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal"></button>
+            <div id="modalMediaContainer"></div>
+            <div class="modal-text-container">
+                <div class="modal-date" id="modalDate"></div>
+                <h3 class="modal-title" id="modalTitle"></h3>
+                <p class="modal-description" id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Accordion functionality
+        const envelopes = document.querySelectorAll('.letter-envelope');
+
+        envelopes.forEach(envelope => {
+            const header = envelope.querySelector('.envelope-header');
+
+            header.addEventListener('click', () => {
+                const isActive = envelope.classList.contains('active');
+
+                // Close all envelopes
+                envelopes.forEach(env => env.classList.remove('active'));
+
+                // If it wasn't active, open it
+                if (!isActive) {
+                    envelope.classList.add('active');
+                }
+            });
+        });
+
+        // Memory modal functionality
+        const modal = document.getElementById('memoryModal');
+        const closeModal = document.getElementById('closeModal');
+        const memoryCards = document.querySelectorAll('.memory-card');
+
+        memoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const mediaType = card.getAttribute('data-media-type');
+                const mediaSrc = card.getAttribute('data-media-src');
+                const date = card.querySelector('.memory-date').textContent;
+                const title = card.querySelector('.memory-title').textContent;
+                const description = card.querySelector('.memory-text').textContent;
+
+                // Set modal content
+                document.getElementById('modalDate').textContent = date;
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalDescription').textContent = description;
+
+                // Set media
+                const mediaContainer = document.getElementById('modalMediaContainer');
+                if (mediaType === 'image') {
+                    mediaContainer.innerHTML = `<img src="${mediaSrc}" alt="${title}" class="modal-media">`;
+                } else if (mediaType === 'video') {
+                    mediaContainer.innerHTML = `<video src="${mediaSrc}" class="modal-media" controls autoplay muted></video>`;
+                }
+
+                // Show modal
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal
+        function closeMemoryModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+
+            // Stop video if playing
+            const video = modal.querySelector('video');
+            if (video) {
+                video.pause();
+            }
+        }
+
+        closeModal.addEventListener('click', closeMemoryModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeMemoryModal();
+            }
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeMemoryModal();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
