@@ -3,945 +3,1039 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentine?</title>
+    <title>For You, With Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500&display=swap');
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --burgundy: #8B2635;
+            --soft-red: #D84A5E;
+            --cream: #FFF5F5;
+            --white: #FFFFFF;
+            --deep-red: #5C1A24;
+            --rose: #E8B4B8;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(165deg, #ffc5d0 0%, #ffb3c1 50%, #ffa8b8 100%);
+            background: var(--cream);
+            color: var(--deep-red);
+            overflow-x: hidden;
+        }
+
+        .hero {
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 40px 20px;
-        }
-
-        .main-card {
-            background: linear-gradient(145deg, #fffbfc 0%, #fff5f7 100%);
-            border-radius: 32px;
-            padding: 90px 110px;
-            max-width: 1200px;
-            width: 100%;
+            justify-content: center;
             position: relative;
-            overflow: visible;
-            box-shadow: 0 30px 90px rgba(180, 70, 90, 0.15);
+            background: linear-gradient(135deg, var(--cream) 0%, var(--white) 50%, var(--cream) 100%);
+            padding: 2rem;
+            overflow: hidden;
         }
 
-        .content-wrapper {
-            max-width: 520px;
-        }
-
-        h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 68px;
-            color: #3a1f2d;
-            margin-bottom: 28px;
-            font-weight: 600;
-            line-height: 1.15;
-            letter-spacing: -0.5px;
-        }
-
-        .message {
-            font-size: 16px;
-            color: #6a5058;
-            margin-bottom: 55px;
-            line-height: 1.75;
-            font-weight: 300;
-            letter-spacing: 0.2px;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 16px;
-            position: relative;
-        }
-
-        .btn {
-            padding: 18px 48px;
-            border: none;
-            border-radius: 60px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            letter-spacing: 0.5px;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .btn-yes {
-            background: linear-gradient(135deg, #d85d7a 0%, #c94d68 100%);
-            color: #ffffff;
-            box-shadow: 0 8px 24px rgba(217, 93, 122, 0.25);
-        }
-
-        .btn-yes:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(217, 93, 122, 0.35);
-        }
-
-        .btn-no {
-            background: transparent;
-            color: #c94d68;
-            border: 1.5px solid #d8a0ad;
-            box-shadow: none;
-        }
-
-        .btn-no:hover {
-            background: rgba(216, 93, 122, 0.04);
-            border-color: #c94d68;
-        }
-
-        .balloons-container {
+        /* Floating Roses */
+        .floating-roses {
             position: absolute;
-            right: 100px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 380px;
-            height: 480px;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        .balloon {
+        .floating-roses.top-left {
+            top: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+        }
+
+        .floating-roses.bottom-right {
+            bottom: -100px;
+            right: -100px;
+            width: 450px;
+            height: 450px;
+        }
+
+        .rose {
             position: absolute;
+            font-size: 3rem;
+            opacity: 0.15;
+            animation: floatRose 20s ease-in-out infinite;
         }
 
-        .balloon-1 {
-            right: 130px;
-            top: 90px;
-            animation: float1 5s ease-in-out infinite;
+        .rose-1 { 
+            top: 10%; 
+            left: 20%; 
+            animation-delay: 0s;
+            font-size: 2.5rem;
         }
-
-        .balloon-2 {
-            right: 35px;
-            top: 25px;
-            animation: float2 5.5s ease-in-out infinite;
+        
+        .rose-2 { 
+            top: 40%; 
+            left: 5%; 
+            animation-delay: 3s;
+            font-size: 3.5rem;
         }
-
-        .balloon-3 {
-            right: 215px;
-            top: 195px;
-            animation: float3 5.2s ease-in-out infinite;
-        }
-
-        .balloon-4 {
-            right: 90px;
-            top: 175px;
-            animation: float1 6s ease-in-out infinite;
-            animation-delay: 0.8s;
-        }
-
-        .balloon-5 {
-            right: 165px;
-            top: 40px;
-            animation: float2 5.8s ease-in-out infinite;
-            animation-delay: 1.2s;
+        
+        .rose-3 { 
+            top: 70%; 
+            left: 30%; 
+            animation-delay: 6s;
+            font-size: 2rem;
         }
 
         .heart {
-            width: 75px;
-            height: 75px;
-            position: relative;
-            filter: drop-shadow(0 6px 16px rgba(201, 77, 104, 0.15));
-        }
-
-        .heart:before,
-        .heart:after {
-            content: "";
             position: absolute;
-            width: 37.5px;
-            height: 61px;
-            background: #d85d7a;
-            border-radius: 37.5px 37.5px 0 0;
+            font-size: 2.5rem;
+            opacity: 0.12;
+            animation: floatHeart 18s ease-in-out infinite;
         }
 
-        .heart:before {
-            left: 37.5px;
-            transform: rotate(-45deg);
-            transform-origin: 0 100%;
+        .heart-1 {
+            top: 15%;
+            right: 25%;
+            animation-delay: 1s;
+            font-size: 3rem;
         }
 
-        .heart:after {
-            left: 0;
-            transform: rotate(45deg);
-            transform-origin: 100% 100%;
+        .heart-2 {
+            top: 50%;
+            right: 10%;
+            animation-delay: 4s;
+            font-size: 2rem;
         }
 
-        .balloon-1 .heart {
-            width: 95px;
-            height: 95px;
+        .heart-3 {
+            top: 75%;
+            right: 30%;
+            animation-delay: 7s;
+            font-size: 2.8rem;
         }
 
-        .balloon-1 .heart:before,
-        .balloon-1 .heart:after {
-            width: 47.5px;
-            height: 77px;
-            background: #c94d68;
+        @keyframes floatRose {
+            0%, 100% { 
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            25% { 
+                transform: translate(20px, -25px) rotate(5deg) scale(1.05);
+            }
+            50% { 
+                transform: translate(-15px, -15px) rotate(-3deg) scale(0.95);
+            }
+            75% { 
+                transform: translate(25px, 20px) rotate(4deg) scale(1.02);
+            }
         }
 
-        .balloon-1 .heart:before {
-            left: 47.5px;
+        @keyframes floatHeart {
+            0%, 100% { 
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            33% { 
+                transform: translate(-20px, 20px) rotate(-8deg) scale(1.08);
+            }
+            66% { 
+                transform: translate(15px, -25px) rotate(6deg) scale(0.92);
+            }
         }
 
-        .balloon-2 .heart {
-            width: 108px;
-            height: 108px;
-        }
-
-        .balloon-2 .heart:before,
-        .balloon-2 .heart:after {
-            width: 54px;
-            height: 88px;
-            background: #b8405a;
-        }
-
-        .balloon-2 .heart:before {
-            left: 54px;
-        }
-
-        .balloon-3 .heart:before,
-        .balloon-3 .heart:after {
-            background: #e06b84;
-        }
-
-        .balloon-4 .heart {
-            width: 60px;
-            height: 60px;
-        }
-
-        .balloon-4 .heart:before,
-        .balloon-4 .heart:after {
-            width: 30px;
-            height: 49px;
-            background: #d15570;
-        }
-
-        .balloon-4 .heart:before {
-            left: 30px;
-        }
-
-        .balloon-5 .heart {
-            width: 70px;
-            height: 70px;
-        }
-
-        .balloon-5 .heart:before,
-        .balloon-5 .heart:after {
-            width: 35px;
-            height: 57px;
-            background: #bd4560;
-        }
-
-        .balloon-5 .heart:before {
-            left: 35px;
-        }
-
-        .string {
+        .hero::before {
+            content: '';
             position: absolute;
-            width: 1px;
-            height: 85px;
-            background: linear-gradient(to bottom, rgba(201, 77, 104, 0.3) 0%, transparent 100%);
-            left: 50%;
-            top: 100%;
-            transform: translateX(-50%);
+            top: -50%;
+            right: -20%;
+            width: 70%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(216, 74, 94, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
         }
 
-        @keyframes float1 {
-            0%, 100% {
-                transform: translateY(0) translateX(0) rotate(-2deg);
-            }
-            50% {
-                transform: translateY(-22px) translateX(10px) rotate(2deg);
-            }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 60%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(139, 38, 53, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 25s ease-in-out infinite reverse;
         }
 
-        @keyframes float2 {
-            0%, 100% {
-                transform: translateY(0) translateX(0) rotate(2deg);
-            }
-            50% {
-                transform: translateY(-28px) translateX(-10px) rotate(-2deg);
-            }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(5deg); }
+            66% { transform: translate(-20px, 20px) rotate(-5deg); }
         }
 
-        @keyframes float3 {
-            0%, 100% {
-                transform: translateY(0) translateX(0) rotate(-1deg);
-            }
-            50% {
-                transform: translateY(-20px) translateX(7px) rotate(1deg);
-            }
-        }
-
-        .celebration {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        .response-card {
-            margin-top: 40px;
-            padding: 35px;
-            background: linear-gradient(135deg, #d85d7a 0%, #c94d68 100%);
-            border-radius: 24px;
+        .hero-content {
             text-align: center;
-            box-shadow: 0 12px 40px rgba(217, 93, 122, 0.3);
+            max-width: 900px;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1.2s ease-out;
         }
 
-        .response-card h2 {
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
             font-family: 'Cormorant Garamond', serif;
-            color: white;
-            font-size: 42px;
-            font-weight: 600;
-            margin: 0 0 12px 0;
-            letter-spacing: -0.3px;
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 400;
+            color: var(--burgundy);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
         }
 
-        .response-card p {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 15px;
-            margin: 0;
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
             font-weight: 300;
-            letter-spacing: 0.3px;
+            color: var(--soft-red);
+            margin-bottom: 3rem;
+            letter-spacing: 0.05em;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.4s forwards;
         }
 
-        @media (max-width: 1100px) {
-            .main-card {
-                padding: 70px 60px;
-            }
-
-            .balloons-container {
-                right: 50px;
-                width: 300px;
-                height: 400px;
-            }
-
-            h1 {
-                font-size: 56px;
-            }
-
-            .heart {
-                width: 65px;
-                height: 65px;
-            }
-
-            .heart:before,
-            .heart:after {
-                width: 32.5px;
-                height: 53px;
-            }
-
-            .heart:before {
-                left: 32.5px;
-            }
-
-            .balloon-1 .heart {
-                width: 82px;
-                height: 82px;
-            }
-
-            .balloon-1 .heart:before,
-            .balloon-1 .heart:after {
-                width: 41px;
-                height: 67px;
-            }
-
-            .balloon-1 .heart:before {
-                left: 41px;
-            }
-
-            .balloon-2 .heart {
-                width: 92px;
-                height: 92px;
-            }
-
-            .balloon-2 .heart:before,
-            .balloon-2 .heart:after {
-                width: 46px;
-                height: 75px;
-            }
-
-            .balloon-2 .heart:before {
-                left: 46px;
-            }
-
-            .balloon-4 .heart {
-                width: 52px;
-                height: 52px;
-            }
-
-            .balloon-4 .heart:before,
-            .balloon-4 .heart:after {
-                width: 26px;
-                height: 42px;
-            }
-
-            .balloon-4 .heart:before {
-                left: 26px;
-            }
-
-            .balloon-5 .heart {
-                width: 60px;
-                height: 60px;
-            }
-
-            .balloon-5 .heart:before,
-            .balloon-5 .heart:after {
-                width: 30px;
-                height: 49px;
-            }
-
-            .balloon-5 .heart:before {
-                left: 30px;
-            }
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
-        @media (max-width: 900px) {
-            .main-card {
-                padding: 60px 45px;
-            }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s forwards, bounce 2s ease-in-out 1.8s infinite;
+        }
 
-            .balloons-container {
-                right: 30px;
-                width: 260px;
-                height: 360px;
-            }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
 
-            h1 {
-                font-size: 50px;
-            }
+        .scroll-indicator::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 40px;
+            border: 2px solid var(--burgundy);
+            border-radius: 12px;
+            position: relative;
+            margin: 0 auto 0.5rem;
+        }
 
-            .message {
-                font-size: 15px;
-            }
+        .scroll-indicator::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--burgundy);
+            border-radius: 2px;
+            animation: scrollDot 2s ease-in-out infinite;
+        }
 
-            .btn {
-                padding: 16px 40px;
-                font-size: 14px;
-            }
+        @keyframes scrollDot {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            50% { transform: translateX(-50%) translateY(16px); opacity: 0; }
+        }
+
+        .memories-section {
+            padding: 8rem 2rem;
+            background: var(--white);
+            position: relative;
+        }
+
+        .memories-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--rose), transparent);
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 500;
+            color: var(--burgundy);
+            text-align: center;
+            margin-bottom: 4rem;
+            letter-spacing: -0.01em;
+        }
+
+        .memories-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .memory-card {
+            background: var(--cream);
+            padding: 2.5rem;
+            border-radius: 2px;
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            border: 1px solid rgba(139, 38, 53, 0.08);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .memory-card:nth-child(1) { animation-delay: 0.1s; }
+        .memory-card:nth-child(2) { animation-delay: 0.2s; }
+        .memory-card:nth-child(3) { animation-delay: 0.3s; }
+        .memory-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .memory-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(135deg, var(--soft-red), var(--burgundy));
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(139, 38, 53, 0.15);
+        }
+
+        .memory-card:hover::before {
+            opacity: 1;
+        }
+
+        .memory-card::after {
+            content: 'Click to view';
+            position: absolute;
+            bottom: 1.5rem;
+            right: 2rem;
+            font-size: 0.75rem;
+            color: var(--soft-red);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        .memory-card:hover::after {
+            opacity: 0.7;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(92, 26, 36, 0.96);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            max-width: 1000px;
+            width: 100%;
+            background: var(--white);
+            border-radius: 0;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(139, 38, 53, 0.2);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--burgundy);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-close:hover {
+            background: var(--burgundy);
+            transform: rotate(90deg);
+        }
+
+        .modal-close::before,
+        .modal-close::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 2px;
+            background: var(--burgundy);
+            transition: background 0.3s ease;
+        }
+
+        .modal-close:hover::before,
+        .modal-close:hover::after {
+            background: var(--white);
+        }
+
+        .modal-close::before {
+            transform: rotate(45deg);
+        }
+
+        .modal-close::after {
+            transform: rotate(-45deg);
+        }
+
+        .modal-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        .modal-media-container {
+            position: relative;
+            overflow: hidden;
+            background: var(--deep-red);
+        }
+
+        .modal-media {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.95;
+        }
+
+        .modal-text-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 3.5rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--cream) 100%);
+            position: relative;
+        }
+
+        .modal-text-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--soft-red) 0%, var(--burgundy) 100%);
+        }
+
+        .modal-date {
+            font-size: 0.8rem;
+            color: var(--soft-red);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .modal-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 500;
+            color: var(--burgundy);
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .modal-description {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--deep-red);
+            font-weight: 400;
+        }
+
+        .modal-decoration {
+            margin-top: 2.5rem;
+            text-align: right;
+            font-size: 2rem;
+            color: var(--soft-red);
+            opacity: 0.5;
+        }
+
+        .memory-date {
+            font-size: 0.85rem;
+            color: var(--soft-red);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .memory-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--burgundy);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .memory-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--deep-red);
+            font-weight: 300;
+        }
+
+        .open-when-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+        }
+
+        .letters-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .letter-envelope {
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(139, 38, 53, 0.15);
+            border-radius: 2px;
+            overflow: hidden;
+            background: var(--white);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .letter-envelope:nth-child(1) { animation-delay: 0.1s; }
+        .letter-envelope:nth-child(2) { animation-delay: 0.2s; }
+        .letter-envelope:nth-child(3) { animation-delay: 0.3s; }
+
+        .letter-envelope:hover {
+            border-color: rgba(139, 38, 53, 0.3);
+            box-shadow: 0 8px 24px rgba(139, 38, 53, 0.08);
+        }
+
+        .letter-envelope.active {
+            border-color: var(--soft-red);
+            box-shadow: 0 12px 32px rgba(139, 38, 53, 0.12);
+        }
+
+        .envelope-header {
+            padding: 2rem 2.5rem;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.3s ease;
+            user-select: none;
+        }
+
+        .envelope-header:hover {
+            background: rgba(216, 74, 94, 0.02);
+        }
+
+        .letter-envelope.active .envelope-header {
+            background: rgba(216, 74, 94, 0.04);
+        }
+
+        .envelope-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 400;
+            color: var(--burgundy);
+            font-style: italic;
+            flex: 1;
+        }
+
+        .accordion-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.4s ease;
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+
+        .accordion-icon::before,
+        .accordion-icon::after {
+            content: '';
+            position: absolute;
+            background: var(--burgundy);
+            transition: all 0.4s ease;
+        }
+
+        .accordion-icon::before {
+            width: 14px;
+            height: 2px;
+        }
+
+        .accordion-icon::after {
+            width: 2px;
+            height: 14px;
+        }
+
+        .letter-envelope.active .accordion-icon {
+            background: var(--soft-red);
+            transform: rotate(90deg);
+        }
+
+        .letter-envelope.active .accordion-icon::before,
+        .letter-envelope.active .accordion-icon::after {
+            background: var(--white);
+        }
+
+        .letter-envelope.active .accordion-icon::after {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        .letter-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease;
+            padding: 0 2.5rem;
+        }
+
+        .letter-envelope.active .letter-content {
+            max-height: 1000px;
+            padding: 0 2.5rem 2.5rem 2.5rem;
+        }
+
+        .letter-inner {
+            position: relative;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+            border-left: 3px solid var(--soft-red);
+            margin-top: 1.5rem;
+        }
+
+        .letter-inner::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            color: var(--rose);
+            line-height: 1;
+            opacity: 0.3;
+        }
+
+        .letter-text {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--deep-red);
+            font-weight: 300;
+        }
+
+        .letter-signature {
+            margin-top: 2rem;
+            text-align: right;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--burgundy);
+            font-style: italic;
+        }
+
+        .conclusion-section {
+            padding: 8rem 2rem;
+            background: var(--burgundy);
+            color: var(--cream);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .conclusion-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+        }
+
+        .conclusion-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .conclusion-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 500;
+            margin-bottom: 2rem;
+            letter-spacing: -0.01em;
+        }
+
+        .conclusion-text {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 3rem;
+        }
+
+        .heart-decoration {
+            font-size: 2.5rem;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 20px 15px;
-                overflow-x: hidden;
+            .hero {
+                padding: 1.5rem;
             }
 
-            .main-card {
-                padding: 60px 30px 80px;
-                text-align: center;
-                border-radius: 28px;
-                overflow: visible;
-                position: relative;
+            .floating-roses.top-left,
+            .floating-roses.bottom-right {
+                width: 250px;
+                height: 250px;
             }
 
-            .content-wrapper {
-                max-width: 100%;
-                position: relative;
-                z-index: 10;
+            .rose, .heart {
+                font-size: 2rem !important;
             }
 
-            h1 {
-                font-size: 44px;
-                margin-bottom: 22px;
+            .memories-section,
+            .open-when-section,
+            .conclusion-section {
+                padding: 5rem 1.5rem;
             }
 
-            .message {
-                font-size: 15px;
-                margin-bottom: 40px;
+            .letter-content {
+                padding: 0 1.5rem;
             }
 
-            .balloons-container {
-                position: absolute;
-                right: 0;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                transform: none;
-                margin: 0;
-                pointer-events: none;
-                z-index: 5;
+            .letter-envelope.active .letter-content {
+                padding: 0 1.5rem 2rem 1.5rem;
             }
 
-            .balloon {
-                transform-origin: center bottom;
+            .letter-inner {
+                padding: 1.5rem;
             }
 
-            .balloon-1 {
-                left: 10%;
-                top: 15%;
-                animation: floatMobile1 6s ease-in-out infinite;
+            .envelope-header {
+                padding: 1.5rem;
             }
 
-            .balloon-2 {
-                right: 8%;
-                left: auto;
-                top: 8%;
-                animation: floatMobile2 7s ease-in-out infinite;
+            .envelope-title {
+                font-size: 1.3rem;
             }
 
-            .balloon-3 {
-                left: 5%;
-                bottom: 20%;
-                top: auto;
-                animation: floatMobile3 6.5s ease-in-out infinite;
+            .accordion-icon {
+                width: 36px;
+                height: 36px;
             }
 
-            .balloon-4 {
-                right: 5%;
-                left: auto;
-                bottom: 15%;
-                top: auto;
-                animation: floatMobile1 7.5s ease-in-out infinite;
-                animation-delay: 1s;
+            .modal {
+                padding: 1rem;
             }
 
-            .balloon-5 {
-                right: 45%;
-                top: 5%;
-                animation: floatMobile2 6.8s ease-in-out infinite;
-                animation-delay: 0.5s;
+            .modal-inner {
+                grid-template-columns: 1fr;
+                min-height: auto;
             }
 
-            .heart {
-                width: 85px;
-                height: 85px;
+            .modal-media-container {
+                height: 300px;
             }
 
-            .heart:before,
-            .heart:after {
-                width: 42.5px;
-                height: 69px;
+            .modal-text-wrapper {
+                padding: 2.5rem 2rem;
             }
 
-            .heart:before {
-                left: 42.5px;
+            .modal-title {
+                font-size: 2rem;
             }
 
-            .balloon-1 .heart {
-                width: 110px;
-                height: 110px;
+            .modal-description {
+                font-size: 1rem;
             }
 
-            .balloon-1 .heart:before,
-            .balloon-1 .heart:after {
-                width: 55px;
-                height: 89px;
+            .modal-close {
+                top: 1rem;
+                right: 1rem;
+                width: 44px;
+                height: 44px;
             }
 
-            .balloon-1 .heart:before {
-                left: 55px;
-            }
-
-            .balloon-2 .heart {
-                width: 120px;
-                height: 120px;
-            }
-
-            .balloon-2 .heart:before,
-            .balloon-2 .heart:after {
-                width: 60px;
-                height: 97px;
-            }
-
-            .balloon-2 .heart:before {
-                left: 60px;
-            }
-
-            .balloon-4 .heart {
-                width: 75px;
-                height: 75px;
-            }
-
-            .balloon-4 .heart:before,
-            .balloon-4 .heart:after {
-                width: 37.5px;
-                height: 61px;
-            }
-
-            .balloon-4 .heart:before {
-                left: 37.5px;
-            }
-
-            .balloon-5 .heart {
-                width: 90px;
-                height: 90px;
-            }
-
-            .balloon-5 .heart:before,
-            .balloon-5 .heart:after {
-                width: 45px;
-                height: 73px;
-            }
-
-            .balloon-5 .heart:before {
-                left: 45px;
-            }
-
-            @keyframes floatMobile1 {
-                0%, 100% {
-                    transform: translateY(0) translateX(0);
-                }
-                25% {
-                    transform: translateY(-25px) translateX(15px);
-                }
-                50% {
-                    transform: translateY(-15px) translateX(-10px);
-                }
-                75% {
-                    transform: translateY(-30px) translateX(12px);
-                }
-            }
-
-            @keyframes floatMobile2 {
-                0%, 100% {
-                    transform: translateY(0) translateX(0);
-                }
-                25% {
-                    transform: translateY(-20px) translateX(-12px);
-                }
-                50% {
-                    transform: translateY(-35px) translateX(8px);
-                }
-                75% {
-                    transform: translateY(-18px) translateX(-15px);
-                }
-            }
-
-            @keyframes floatMobile3 {
-                0%, 100% {
-                    transform: translateY(0) translateX(0);
-                }
-                33% {
-                    transform: translateY(-28px) translateX(10px);
-                }
-                66% {
-                    transform: translateY(-22px) translateX(-8px);
-                }
-            }
-
-            .buttons {
-                justify-content: center;
-                flex-wrap: wrap;
-                position: relative;
-                z-index: 10;
-            }
-
-            .btn {
-                padding: 16px 36px;
-                font-size: 14px;
-            }
-
-            .response-card {
-                padding: 30px 25px;
-                margin-top: 35px;
-            }
-
-            .response-card h2 {
-                font-size: 36px;
-            }
-
-            .response-card p {
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 15px 10px;
-            }
-
-            .main-card {
-                padding: 45px 25px 70px;
-                border-radius: 24px;
-            }
-
-            h1 {
-                font-size: 36px;
-                margin-bottom: 18px;
-            }
-
-            .message {
-                font-size: 14px;
-                margin-bottom: 35px;
-                line-height: 1.7;
-            }
-
-            .balloons-container {
-                width: 240px;
-                height: 240px;
-                margin: 40px auto 0;
-            }
-
-            .balloon-1 {
-                right: 80px;
-                top: 50px;
-            }
-
-            .balloon-2 {
-                right: 15px;
-                top: 10px;
-            }
-
-            .balloon-3 {
-                right: 145px;
-                top: 120px;
-            }
-
-            .balloon-4 {
-                right: 50px;
-                top: 100px;
-            }
-
-            .balloon-5 {
-                right: 110px;
-                top: 20px;
-            }
-
-            .heart {
-                width: 50px;
-                height: 50px;
-            }
-
-            .heart:before,
-            .heart:after {
-                width: 25px;
-                height: 41px;
-            }
-
-            .heart:before {
-                left: 25px;
-            }
-
-            .balloon-1 .heart {
-                width: 68px;
-                height: 68px;
-            }
-
-            .balloon-1 .heart:before,
-            .balloon-1 .heart:after {
-                width: 34px;
-                height: 55px;
-            }
-
-            .balloon-1 .heart:before {
-                left: 34px;
-            }
-
-            .balloon-2 .heart {
-                width: 75px;
-                height: 75px;
-            }
-
-            .balloon-2 .heart:before,
-            .balloon-2 .heart:after {
-                width: 37.5px;
-                height: 61px;
-            }
-
-            .balloon-2 .heart:before {
-                left: 37.5px;
-            }
-
-            .balloon-4 .heart {
-                width: 42px;
-                height: 42px;
-            }
-
-            .balloon-4 .heart:before,
-            .balloon-4 .heart:after {
-                width: 21px;
-                height: 34px;
-            }
-
-            .balloon-4 .heart:before {
-                left: 21px;
-            }
-
-            .balloon-5 .heart {
-                width: 48px;
-                height: 48px;
-            }
-
-            .balloon-5 .heart:before,
-            .balloon-5 .heart:after {
-                width: 24px;
-                height: 39px;
-            }
-
-            .balloon-5 .heart:before {
-                left: 24px;
-            }
-
-            .buttons {
-                gap: 12px;
-            }
-
-            .btn {
-                padding: 15px 32px;
-                font-size: 14px;
-            }
-
-            .response-card {
-                padding: 28px 20px;
-                margin-top: 30px;
-                border-radius: 20px;
-            }
-
-            .response-card h2 {
-                font-size: 32px;
-                margin-bottom: 10px;
-            }
-
-            .response-card p {
-                font-size: 13px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .main-card {
-                padding: 40px 20px 60px;
-            }
-
-            h1 {
-                font-size: 32px;
-            }
-
-            .message {
-                font-size: 13px;
-            }
-
-            .balloons-container {
-                width: 200px;
-                height: 200px;
-            }
-
-            .btn {
-                padding: 14px 28px;
-                font-size: 13px;
+            .memory-card::after {
+                font-size: 0.65rem;
+                bottom: 1rem;
+                right: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="main-card">
-        <div class="content-wrapper">
-            <h1>Will You Be My Valentine?</h1>
-            
-            <p class="message">
-                There's something I've been meaning to ask you. Every moment we share feels effortless, and I find myself thinking about you more than I probably should. So here it is, would you be my Valentine?
-            </p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Floating Roses Top Left -->
+        <div class="floating-roses top-left">
+            <div class="rose rose-1">🌹</div>
+            <div class="rose rose-2">🌹</div>
+            <div class="rose rose-3">🌹</div>
+        </div>
+        
+        <!-- Floating Hearts Bottom Right -->
+        <div class="floating-roses bottom-right">
+            <div class="heart heart-1">♥</div>
+            <div class="heart heart-2">♥</div>
+            <div class="heart heart-3">♥</div>
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">For You,<br>With All My Heart</h1>
+            <p class="hero-subtitle">A collection of moments, memories, and love letters</p>
+        </div>
+    </section>
 
-            <div class="buttons">
-                <button class="btn btn-yes" onclick="handleYes()">Yes</button>
-                <button class="btn btn-no" id="noBtn" onclick="handleNo()">No</button>
+    <!-- Memories Section -->
+    <section class="memories-section">
+        <h2 class="section-title">Our Cherished Memories</h2>
+        <div class="memories-grid">
+            <div class="memory-card" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800">
+                <div class="memory-date">December 2023</div>
+                <h3 class="memory-title">That First Coffee</h3>
+                <p class="memory-text">The way you laughed at my terrible joke about the latte art. I knew right then that I wanted to hear that sound for the rest of my life. Your smile lit up the whole café.</p>
+            </div>
+
+            <div class="memory-card" data-media-type="video" data-media-src="https://www.w3schools.com/html/mov_bbb.mp4">
+                <div class="memory-date">March 2024</div>
+                <h3 class="memory-title">Sunset by the Lake</h3>
+                <p class="memory-text">When we sat in comfortable silence, watching the sun paint the sky in shades of gold and pink. No words needed. Just your hand in mine and the world feeling perfectly right.</p>
+            </div>
+
+            <div class="memory-card" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=800">
+                <div class="memory-date">July 2024</div>
+                <h3 class="memory-title">Dancing in the Rain</h3>
+                <p class="memory-text">Remember how we got caught in that summer storm? Instead of running for cover, we danced. You told me I was crazy, but you were laughing the whole time. Pure magic.</p>
+            </div>
+
+            <div class="memory-card" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1511407397940-d57f68e81203?w=800">
+                <div class="memory-date">November 2024</div>
+                <h3 class="memory-title">The Quiet Morning</h3>
+                <p class="memory-text">Waking up to find you'd made breakfast and left me a note on the counter. "Good morning, beautiful." The simplest gesture, but it made my entire week. You make ordinary moments extraordinary.</p>
             </div>
         </div>
+    </section>
 
-        <div class="balloons-container">
-            <div class="balloon balloon-1">
-                <div class="heart"></div>
-                <div class="string"></div>
+    <!-- Open When Letters Section -->
+    <section class="open-when-section">
+        <h2 class="section-title">Letters for You</h2>
+        <div class="letters-container">
+            
+            <div class="letter-envelope">
+                <div class="envelope-header">
+                    <h3 class="envelope-title">Open When You Think of Me</h3>
+                    <div class="accordion-icon"></div>
+                </div>
+                <div class="letter-content">
+                    <div class="letter-inner">
+                        <p class="letter-text">I hope you're smiling right now, because I'm thinking of you too. Wherever you are, whatever you're doing, know that you crossed my mind and made this moment brighter. You have this way of staying with me even when we're apart. In the quiet moments, in the busy ones, in everything between. You're woven into my thoughts like a favorite song I can't help but replay. I miss you when you're not here, but I carry you with me always. Think of this as me giving you a hug from wherever I am. Close your eyes, take a deep breath, and feel how much you mean to me.</p>
+                        <div class="letter-signature">Always yours</div>
+                    </div>
+                </div>
             </div>
-            <div class="balloon balloon-2">
-                <div class="heart"></div>
-                <div class="string"></div>
+
+            <div class="letter-envelope">
+                <div class="envelope-header">
+                    <h3 class="envelope-title">Open When You Need to Know How Special You Are</h3>
+                    <div class="accordion-icon"></div>
+                </div>
+                <div class="letter-content">
+                    <div class="letter-inner">
+                        <p class="letter-text">You are extraordinary. Not because of any single thing you do, but because of who you are at your core. The way you care for others without keeping score. The way you find joy in small things. The way you make people feel seen and valued. Your kindness is not a weakness; it's your superpower. Your sensitivity is not too much; it's what makes you beautifully human. The world needs more people like you. I need you. On days when you doubt yourself, remember that you are someone's reason to smile. You are my reason. You light up rooms just by being in them. You make life better simply by existing in it. Never forget how rare and precious you are.</p>
+                        <div class="letter-signature">Your biggest admirer</div>
+                    </div>
+                </div>
             </div>
-            <div class="balloon balloon-3">
-                <div class="heart"></div>
-                <div class="string"></div>
+
+            <div class="letter-envelope">
+                <div class="envelope-header">
+                    <h3 class="envelope-title">Open When You're Missing Me</h3>
+                    <div class="accordion-icon"></div>
+                </div>
+                <div class="letter-content">
+                    <div class="letter-inner">
+                        <p class="letter-text">I miss you too. Distance is just a test to see how far love can travel, and ours goes on forever. Close your eyes and picture this: I'm right there beside you. My hand is holding yours. I'm listening to whatever you need to say, or we're sitting in that comfortable silence we've perfected. I'm there in the memories we've made and in all the ones we're going to create. Until we're together again, look at the stars and know I'm looking at them too. Listen to our favorite songs. Reread these letters. Hold onto the thought that missing someone means you're lucky enough to have someone worth missing. And you, my love, are worth every moment of missing and every mile between us.</p>
+                        <div class="letter-signature">Until we meet again</div>
+                    </div>
+                </div>
             </div>
-            <div class="balloon balloon-4">
-                <div class="heart"></div>
-                <div class="string"></div>
-            </div>
-            <div class="balloon balloon-5">
-                <div class="heart"></div>
-                <div class="string"></div>
+
+        </div>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section class="conclusion-section">
+        <div class="conclusion-content">
+            <h2 class="conclusion-title">You Are My Forever</h2>
+            <p class="conclusion-text">Every love story is beautiful, but ours is my favorite. Thank you for being you, for choosing me, for making every day an adventure worth taking. Here's to all our memories made and all the ones still waiting for us. Happy Valentine's Day, my love.</p>
+            <div class="heart-decoration">♥</div>
+        </div>
+    </section>
+
+    <!-- Memory Modal -->
+    <div class="modal" id="memoryModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal"></button>
+            <div class="modal-inner">
+                <div class="modal-media-container" id="modalMediaContainer"></div>
+                <div class="modal-text-wrapper">
+                    <div class="modal-date" id="modalDate"></div>
+                    <h3 class="modal-title" id="modalTitle"></h3>
+                    <p class="modal-description" id="modalDescription"></p>
+                    <div class="modal-decoration">♥</div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        let noClickCount = 0;
-        const noMessages = [
-            "Are you sure?",
-            "Think about it",
-            "Really?",
-            "Please reconsider",
-            "One more chance?",
-            "You might regret this",
-            "Final answer?"
-        ];
-
-        function handleYes() {
-            const contentWrapper = document.querySelector('.content-wrapper');
-            contentWrapper.innerHTML = `
-                <h1>Yes</h1>
-                <p class="message">
-                    Send them a screenshot of this so they know your answer.
-                </p>
-                <div class="response-card">
-                    <h2>I said yes</h2>
-                    <p>Screenshot and send this to your Valentine</p>
-                </div>
-            `;
-
-            for (let i = 0; i < 35; i++) {
-                setTimeout(() => createHeart(), i * 90);
-            }
-        }
-
-        function handleNo() {
-            const noBtn = document.getElementById('noBtn');
+        // Accordion functionality
+        const envelopes = document.querySelectorAll('.letter-envelope');
+        
+        envelopes.forEach(envelope => {
+            const header = envelope.querySelector('.envelope-header');
             
-            if (noClickCount < noMessages.length) {
-                noBtn.textContent = noMessages[noClickCount];
-                noClickCount++;
+            header.addEventListener('click', () => {
+                const isActive = envelope.classList.contains('active');
                 
-                const yesBtn = document.querySelector('.btn-yes');
-                const currentSize = parseInt(window.getComputedStyle(yesBtn).fontSize);
-                yesBtn.style.fontSize = (currentSize + 1.5) + 'px';
-                yesBtn.style.padding = `${18 + noClickCount * 2}px ${48 + noClickCount * 5}px`;
-            } else {
-                const rect = noBtn.getBoundingClientRect();
-                const maxX = window.innerWidth - rect.width - 40;
-                const maxY = window.innerHeight - rect.height - 40;
-                const randomX = Math.max(20, Math.random() * maxX);
-                const randomY = Math.max(20, Math.random() * maxY);
+                // Close all envelopes
+                envelopes.forEach(env => env.classList.remove('active'));
                 
-                noBtn.style.position = 'fixed';
-                noBtn.style.left = randomX + 'px';
-                noBtn.style.top = randomY + 'px';
-                noBtn.textContent = "Can't catch me";
+                // If it wasn't active, open it
+                if (!isActive) {
+                    envelope.classList.add('active');
+                }
+            });
+        });
+
+        // Memory modal functionality
+        const modal = document.getElementById('memoryModal');
+        const closeModal = document.getElementById('closeModal');
+        const memoryCards = document.querySelectorAll('.memory-card');
+        
+        memoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const mediaType = card.getAttribute('data-media-type');
+                const mediaSrc = card.getAttribute('data-media-src');
+                const date = card.querySelector('.memory-date').textContent;
+                const title = card.querySelector('.memory-title').textContent;
+                const description = card.querySelector('.memory-text').textContent;
+                
+                // Set modal content
+                document.getElementById('modalDate').textContent = date;
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalDescription').textContent = description;
+                
+                // Set media
+                const mediaContainer = document.getElementById('modalMediaContainer');
+                if (mediaType === 'image') {
+                    mediaContainer.innerHTML = `<img src="${mediaSrc}" alt="${title}" class="modal-media">`;
+                } else if (mediaType === 'video') {
+                    mediaContainer.innerHTML = `<video src="${mediaSrc}" class="modal-media" controls autoplay muted></video>`;
+                }
+                
+                // Show modal
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close modal
+        function closeMemoryModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Stop video if playing
+            const video = modal.querySelector('video');
+            if (video) {
+                video.pause();
             }
         }
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'celebration';
-            heart.textContent = '❤️';
-            heart.style.left = Math.random() * window.innerWidth + 'px';
-            heart.style.top = window.innerHeight + 'px';
-            heart.style.fontSize = (Math.random() * 18 + 24) + 'px';
-            heart.style.opacity = '1';
-            heart.style.transition = 'all 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            document.body.appendChild(heart);
-
-            setTimeout(() => {
-                heart.style.top = '-120px';
-                heart.style.opacity = '0';
-                heart.style.transform = `translateX(${(Math.random() - 0.5) * 180}px) rotate(${Math.random() * 360}deg)`;
-            }, 50);
-
-            setTimeout(() => heart.remove(), 3500);
-        }
+        
+        closeModal.addEventListener('click', closeMemoryModal);
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeMemoryModal();
+            }
+        });
+        
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeMemoryModal();
+            }
+        });
     </script>
+
 </body>
 </html>
